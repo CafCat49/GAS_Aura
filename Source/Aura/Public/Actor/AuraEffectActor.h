@@ -38,15 +38,23 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
-
+	
 	UFUNCTION(BlueprintCallable)
 	void OnOverlap(AActor* TargetActor);
 	
 	UFUNCTION(BlueprintCallable)
 	void OnEndOverlap(AActor* TargetActor);
+
+	void ApplyMultipleEffectsToTarget(AActor* TargetActor, TArray<TSubclassOf<UGameplayEffect>> GEArray);
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
+	bool bDestroyOnEffectRemoval = false;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
 	TSubclassOf<UGameplayEffect> InstantGameplayEffectClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
+	TArray<TSubclassOf<UGameplayEffect>> InstantGEClasses;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
 	EEffectApplicationPolicy InstantEffectApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
@@ -55,19 +63,22 @@ protected:
 	TSubclassOf<UGameplayEffect> DurationGameplayEffectClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
+	TArray<TSubclassOf<UGameplayEffect>> DurationGEClasses;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
 	EEffectApplicationPolicy DurationEffectApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
 	TSubclassOf<UGameplayEffect> InfiniteGameplayEffectClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
+	TArray<TSubclassOf<UGameplayEffect>> InfiniteGEClasses;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
 	EEffectApplicationPolicy InfiniteEffectApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
 	EEffectRemovalPolicy InfiniteEffectRemovalPolicy = EEffectRemovalPolicy::RemoveOnEndOverlap;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
-	bool bDestroyOnEffectRemoval = false;
-
+	
 	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectHandles;
 };

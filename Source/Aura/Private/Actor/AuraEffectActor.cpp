@@ -45,17 +45,42 @@ void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGam
 
 void AAuraEffectActor::OnOverlap(AActor* TargetActor)
 {
+
 	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
 	{
-		ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
+		if (!InstantGEClasses.IsEmpty())
+		{
+			ApplyMultipleEffectsToTarget(TargetActor, InstantGEClasses);
+		}
+		else
+		{
+			ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
+		}
 	}
+	
 	if (DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
 	{
-		ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
+		if (!DurationGEClasses.IsEmpty())
+		{
+			ApplyMultipleEffectsToTarget(TargetActor, DurationGEClasses);
+		}
+		else
+		{
+			ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
+		}
 	}
+
+
 	if (InfiniteEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
 	{
-		ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
+		if (!InfiniteGEClasses.IsEmpty())
+		{
+			ApplyMultipleEffectsToTarget(TargetActor, InfiniteGEClasses);
+		}
+		else
+		{
+			ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
+		}
 	}
 }
 
@@ -63,16 +88,40 @@ void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)
 {
 	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
 	{
-		ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
+		if (!InstantGEClasses.IsEmpty())
+		{
+			ApplyMultipleEffectsToTarget(TargetActor, InstantGEClasses);
+		}
+		else
+		{
+			ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
+		}
 	}
+	
 	if (DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
 	{
-		ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
+		if (!DurationGEClasses.IsEmpty())
+		{
+			ApplyMultipleEffectsToTarget(TargetActor, DurationGEClasses);
+		}
+		else
+		{
+			ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
+		}
 	}
+	
 	if (InfiniteEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
 	{
-		ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
+		if (!InfiniteGEClasses.IsEmpty())
+		{
+			ApplyMultipleEffectsToTarget(TargetActor, InfiniteGEClasses);
+		}
+		else
+		{
+			ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
+		}
 	}
+	
 	if (InfiniteEffectRemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)
 	{
 		UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
@@ -91,5 +140,13 @@ void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)
 		{
 			ActiveEffectHandles.FindAndRemoveChecked(Handle);
 		}
+	}
+}
+
+void AAuraEffectActor::ApplyMultipleEffectsToTarget(AActor* TargetActor, TArray<TSubclassOf<UGameplayEffect>> GEArray)
+{
+	for (const auto GEClass : GEArray)
+	{
+		ApplyEffectToTarget(TargetActor, GEClass);
 	}
 }
