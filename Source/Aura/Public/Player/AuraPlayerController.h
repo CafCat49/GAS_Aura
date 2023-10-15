@@ -38,6 +38,6 @@ private:
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputAction> MoveAction;
 
-	TObjectPtr<IEnemyInterface> PreviousActor;
-	TObjectPtr<IEnemyInterface> CurrentActor;
+	IEnemyInterface* PreviousActor;
+	IEnemyInterface* CurrentActor;
 };
