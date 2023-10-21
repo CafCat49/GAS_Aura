@@ -33,6 +33,7 @@ protected:
 
 private:
 	void Move(const FInputActionValue& InputActionValue);
+	void AutoRun();
 	void CursorTrace();
 	
 	void AbilityInputTagPressed(FGameplayTag InputTag);
@@ -40,6 +41,7 @@ private:
 	void AbilityInputTagHeld(FGameplayTag InputTag);
 	
 	UAuraAbilitySystemComponent* GetASC();
+	APawn* ControlledPawn;
 	
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputMappingContext> AuraContext;
