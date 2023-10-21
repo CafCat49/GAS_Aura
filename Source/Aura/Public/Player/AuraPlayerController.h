@@ -13,6 +13,7 @@ class UInputAction;
 class IEnemyInterface;
 struct FInputActionValue;
 class UAuraAbilitySystemComponent;
+class USplineComponent;
 
 /**
  * 
@@ -39,7 +40,6 @@ private:
 	void AbilityInputTagHeld(FGameplayTag InputTag);
 	
 	UAuraAbilitySystemComponent* GetASC();
-
 	
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputMappingContext> AuraContext;
@@ -55,4 +55,17 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UAuraAbilitySystemComponent> AuraAbilitySystemComponent;
+
+	FVector CachedDestination = FVector::ZeroVector;
+	float FollowTime = 0;
+	float ShortPressThreshold = 0.5;
+	bool bAutoRunning = false;
+	bool bTargeting = false;
+
+	UPROPERTY(EditDefaultsOnly)
+	float AutoRunAcceptanceRadius = 50;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USplineComponent> Spline;
+	
 };
