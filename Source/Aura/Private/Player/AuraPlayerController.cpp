@@ -31,7 +31,7 @@ void AAuraPlayerController::PlayerTick(float DeltaTime)
 void AAuraPlayerController::AutoRun()
 {
 	if (!bAutoRunning) return;
-	if (ControlledPawn)
+	if (APawn* ControlledPawn = GetPawn())
 	{
 		const FVector PosOnSpline =
 			Spline->FindLocationClosestToWorldLocation(ControlledPawn->GetActorLocation(), ESplineCoordinateSpace::World);
@@ -50,34 +50,16 @@ void AAuraPlayerController::AutoRun()
 
 void AAuraPlayerController::CursorTrace()
 {
-	FHitResult CursorHit;
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
 	if (!CursorHit.bBlockingHit) return;
 
 	PreviousActor = CurrentActor;
 	CurrentActor = Cast<IEnemyInterface>(CursorHit.GetActor());
 
-	if (!PreviousActor)
+	if (PreviousActor != CurrentActor)
 	{
-		if (CurrentActor)
-		{
-			CurrentActor->HighlightActor();
-		}
-	}
-	else
-	{
-		if (!CurrentActor)
-		{
-			PreviousActor->UnHighlightActor();
-		}
-		else
-		{
-			if (PreviousActor != CurrentActor)
-			{
-				PreviousActor->UnHighlightActor();
-				CurrentActor->HighlightActor();
-			}
-		}
+		if (PreviousActor) PreviousActor->UnHighlightActor();
+		if (CurrentActor) CurrentActor->HighlightActor();
 	}
 }
 
@@ -94,13 +76,11 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
 	if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB) || bTargeting)
 	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagReleased(InputTag);
-		}
+		if (GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
 	}
 	else
 	{
+		const APawn* ControlledPawn = GetPawn();
 		if (FollowTime <= ShortPressThreshold && ControlledPawn)
 		{
 			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(
@@ -112,7 +92,6 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 				for (const FVector& PtPos : NavPath->PathPoints)
 				{
 					Spline->AddSplinePoint(PtPos, ESplineCoordinateSpace::World);
-					DrawDebugSphere(GetWorld(), PtPos, 8, 8, FColor::Green, false, 5);
 				}
 				CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
 				bAutoRunning = true;
@@ -127,22 +106,16 @@ void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
 	if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB) || bTargeting)
 	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagHeld(InputTag);
-		}
+		if (GetASC()) GetASC()->AbilityInputTagHeld(InputTag);
+
 	}
 	else
 	{
 		FollowTime += GetWorld()->GetDeltaSeconds();
+		
+		if (CursorHit.bBlockingHit) CachedDestination = CursorHit.ImpactPoint;
 
-		FHitResult Hit;
-		if (GetHitResultUnderCursor(ECC_Visibility, false, Hit))
-		{
-			CachedDestination = Hit.ImpactPoint;
-		}
-
-		if (ControlledPawn)
+		if (APawn* ControlledPawn = GetPawn())
 		{
 			const FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
 			ControlledPawn->AddMovementInput(WorldDirection);
@@ -153,27 +126,19 @@ void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 
 UAuraAbilitySystemComponent* AAuraPlayerController::GetASC()
 {
-	if (!AuraAbilitySystemComponent)
-	{
-		AuraAbilitySystemComponent =
-			Cast<UAuraAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
-	}
+	if (!AuraAbilitySystemComponent) AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
 	return AuraAbilitySystemComponent;
 }
 
 void AAuraPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	ControlledPawn = GetPawn();
 	
 	check(AuraContext);
 	UEnhancedInputLocalPlayerSubsystem* Subsystem =
 		ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	if (Subsystem)
-	{
-		Subsystem->AddMappingContext(AuraContext, 0);
-	}
+
+	if (Subsystem) Subsystem->AddMappingContext(AuraContext, 0);
 
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
@@ -215,7 +180,7 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 	const FVector ForwardDirection = FRotationMatrix(Rotation).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(Rotation).GetUnitAxis(EAxis::Y);
 
-	if (ControlledPawn && !bAutoRunning)
+	if (APawn* ControlledPawn = GetPawn())
 	{
 		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);

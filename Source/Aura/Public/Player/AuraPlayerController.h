@@ -41,7 +41,7 @@ private:
 	void AbilityInputTagHeld(FGameplayTag InputTag);
 	
 	UAuraAbilitySystemComponent* GetASC();
-	APawn* ControlledPawn;
+	FHitResult CursorHit;
 	
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputMappingContext> AuraContext;
