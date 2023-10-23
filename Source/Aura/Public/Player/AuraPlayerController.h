@@ -32,7 +32,13 @@ protected:
 	virtual void SetupInputComponent() override;
 
 private:
+
+	void ShiftPressed() { bShiftKeyPressed = true; }
+	void ShiftReleased() { bShiftKeyPressed = false; }
+	bool bShiftKeyPressed = false;
+	
 	void Move(const FInputActionValue& InputActionValue);
+	
 	void AutoRun();
 	void CursorTrace();
 	
@@ -48,6 +54,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputAction> MoveAction;
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	TObjectPtr<UInputAction> ShiftAction;
 
 	IEnemyInterface* PreviousActor;
 	IEnemyInterface* CurrentActor;
