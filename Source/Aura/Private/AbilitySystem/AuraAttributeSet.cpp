@@ -128,6 +128,19 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 			*Props.TargetAvatarActor->GetName(),
 			GetHealth());
 	}
+
+	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
+	{
+		const float TempIncDmg = GetIncomingDamage();
+		SetIncomingDamage(0);
+		if (TempIncDmg > 0)
+		{
+			const float NewHP = GetHealth() - TempIncDmg;
+			SetHealth(FMath::Clamp(NewHP, 0, GetMaxHealth()));
+
+			const bool bFatal = NewHP <= 0;
+		}
+	}
 	
 }
 
