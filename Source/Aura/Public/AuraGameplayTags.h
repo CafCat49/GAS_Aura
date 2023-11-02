@@ -47,8 +47,9 @@ public:
 	FGameplayTag InputTag_3;
 	FGameplayTag InputTag_4;
 
-	//Other Tags
+	//Combat Tags
 	FGameplayTag Damage;
+	FGameplayTag Effects_HitReact;
 
 private:
     static FAuraGameplayTags GameplayTags;
