@@ -15,12 +15,18 @@ struct AuraDamageStatics
 	DECLARE_ATTRIBUTE_CAPTUREDEF(ArmorClass);
 	DECLARE_ATTRIBUTE_CAPTUREDEF(ArmorPenetration);
 	DECLARE_ATTRIBUTE_CAPTUREDEF(BlockChance);
+	DECLARE_ATTRIBUTE_CAPTUREDEF(CriticalChance);
+	DECLARE_ATTRIBUTE_CAPTUREDEF(CriticalDamage);
+	DECLARE_ATTRIBUTE_CAPTUREDEF(CriticalAvoidance);
 	
 	AuraDamageStatics()
 	{
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, ArmorClass, Target, false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, ArmorPenetration, Source, false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, BlockChance, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, CriticalChance, Source, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, CriticalDamage, Source, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, CriticalAvoidance, Target, false);
 	}
 };
 
@@ -35,6 +41,9 @@ UEC_Damage::UEC_Damage()
 	RelevantAttributesToCapture.Add(DamageStatics().ArmorClassDef);
 	RelevantAttributesToCapture.Add(DamageStatics().ArmorPenetrationDef);
 	RelevantAttributesToCapture.Add(DamageStatics().BlockChanceDef);
+	RelevantAttributesToCapture.Add(DamageStatics().CriticalChanceDef);
+	RelevantAttributesToCapture.Add(DamageStatics().CriticalDamageDef);
+	RelevantAttributesToCapture.Add(DamageStatics().CriticalAvoidanceDef);
 }
 
 void UEC_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
@@ -103,6 +112,42 @@ void UEC_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionPara
 	
 	//Armor Class ignores a percent of incoming damage
 	Damage *= (100 - EffectiveArmor * EffectiveArmorCoeff) / 100;
+
+	float SourceCritChance = 0;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(
+		DamageStatics().CriticalChanceDef,
+		EvaluationParameters,
+		SourceCritChance);
+
+	SourceCritChance = FMath::Max<float>(0, SourceCritChance);
+
+	float TargetCritAvoid = 0;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(
+		DamageStatics().CriticalAvoidanceDef,
+		EvaluationParameters,
+		TargetCritAvoid);
+
+	TargetCritAvoid = FMath::Max<float>(0, TargetCritAvoid);
+
+	float SourceCritDamage = 0;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(
+		DamageStatics().CriticalDamageDef,
+		EvaluationParameters,
+		SourceCritDamage);
+
+	SourceCritDamage = FMath::Max<float>(0, SourceCritDamage);
+	
+	const FRealCurve* CritAvoidCurve =
+		CharacterClassInfo->DamageCalculationCoefficients->FindCurve(FName("CriticalAvoidance"), FString());
+	const float CritAvoidCoeff = CritAvoidCurve->Eval(TargetCombatInterface->GetCharacterLevel());
+
+	//Critical Avoidance reduces Critical Chance by a certain percent
+	const float EffectiveCritChance = SourceCritChance - TargetCritAvoid * CritAvoidCoeff;
+	const bool bCrit = FMath::RandRange(1, 100) < EffectiveCritChance;
+
+	//Double damage plus Critical Damage bonus if critical hit
+	if (bCrit)
+		Damage += Damage + SourceCritDamage;
 	
 	const FGameplayModifierEvaluatedData EvaluatedData(
 		UAuraAttributeSet::GetIncomingDamageAttribute(),
