@@ -30,7 +30,7 @@ void AAuraPlayerController::PlayerTick(float DeltaTime)
 	AutoRun();
 }
 
-void AAuraPlayerController::ShowDamageNumber_Implementation(float DamageAmount, ACharacter* TargetCharacter)
+void AAuraPlayerController::ShowDamageNumber_Implementation(float DamageAmount, ACharacter* TargetCharacter, bool bBlocked, bool bCrit)
 {
 	if (IsValid(TargetCharacter) && DamageTextComponentClass)
 	{
@@ -40,7 +40,7 @@ void AAuraPlayerController::ShowDamageNumber_Implementation(float DamageAmount, 
 			TargetCharacter->GetRootComponent(),
 			FAttachmentTransformRules::KeepRelativeTransform);
 		DmgTxt->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
-		DmgTxt->SetDamageText(DamageAmount);
+		DmgTxt->SetDamageText(DamageAmount, bBlocked, bCrit);
 	}
 }
 
