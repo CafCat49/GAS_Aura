@@ -200,9 +200,16 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		GameplayTags.Damage_Poison,
 		GameplayTags.Attributes_Resistance_Poison);
 	
+	//Abilities
+	GameplayTags.Abilities_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.Attack"),
+		FString("Attack Ability Tag")
+		);
+	
 	//Effects
 	GameplayTags.Effects_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Effects.HitReact"),
 		FString("Reaction to being hit")
 		);
+
 }

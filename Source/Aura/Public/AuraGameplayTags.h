@@ -60,8 +60,11 @@ public:
 	FGameplayTag Damage_Poison;
 
 	TMap<FGameplayTag, FGameplayTag> DamageTypesToResistances;
-
-	//Effects
+	
+	//Ability Tags
+	FGameplayTag Abilities_Attack;
+	
+	//Effect Tags
 	FGameplayTag Effects_HitReact;
 
 private:
