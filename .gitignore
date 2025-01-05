@@ -6,7 +6,6 @@ Build
 
 .vscode
 .vs
-.idea
 *.VC.db
 *.opensdf
 *.opendb
@@ -16,3 +15,4 @@ Build
 *.xcodeproj
 *.xcworkspace
 *.code-workspace
+.idea/.idea.Aura.dir/.idea/workspace.xml
