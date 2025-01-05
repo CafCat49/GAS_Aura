@@ -40,7 +40,7 @@ protected:
 
 	void AddCharacterAbilities();
 
-	virtual FVector GetCombatSocketPos() override;
+	virtual FVector GetCombatSocketPos_Implementation() override;
 
 	UPROPERTY(EditAnywhere, Category="Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
