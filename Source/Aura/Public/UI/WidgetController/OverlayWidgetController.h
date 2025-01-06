@@ -53,6 +53,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category="GAS|Messages")
 	FMessageWidgetRowSignature MessageWidgetRow;
+	
 
 protected:
 	template<typename T>
