@@ -53,6 +53,9 @@ public:
 	bool IsDead() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	bool HasFriendlyFire() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	AActor* GetAvatar();
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)

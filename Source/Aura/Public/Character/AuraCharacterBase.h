@@ -30,6 +30,7 @@ public:
 	virtual void Die() override;
 	virtual FVector GetCombatSocketPos_Implementation(const FGameplayTag& MontageTag) override;
 	virtual bool IsDead_Implementation() const override;
+	virtual bool HasFriendlyFire_Implementation() const override;
 	virtual AActor* GetAvatar_Implementation() override;
 	virtual TArray<FTaggedMontage> GetAttackMontages_Implementation() override;
 	// End Combat Interface
@@ -61,8 +62,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Combat")
 	FName RightHandSocketName;
 
+	UPROPERTY(EditAnywhere, Category="Combat")
+	bool bHasFriendlyFire = false;
+	
 	bool bDead = false;
-
+	
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 

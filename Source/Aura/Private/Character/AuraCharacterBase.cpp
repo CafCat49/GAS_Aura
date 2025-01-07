@@ -114,6 +114,11 @@ bool AAuraCharacterBase::IsDead_Implementation() const
 	return bDead;
 }
 
+bool AAuraCharacterBase::HasFriendlyFire_Implementation() const
+{
+	return bHasFriendlyFire;
+}
+
 AActor* AAuraCharacterBase::GetAvatar_Implementation()
 {
 	return this;
