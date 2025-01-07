@@ -39,7 +39,7 @@ public:
 	virtual int32 GetCharacterLevel();
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	FVector GetCombatSocketPos();
+	FVector GetCombatSocketPos(const FGameplayTag& MontageTag);
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void UpdateFacingTarget(const FVector& Target);
