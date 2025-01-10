@@ -7,7 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d26a86ca-86f2-4f5c-b1bd-667903ab6eb1" name="Changes" comment="" />
+    <list default="true" id="d26a86ca-86f2-4f5c-b1bd-667903ab6eb1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Content/Maps/StartupMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/StartupMap.umap" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -160,7 +162,7 @@
       <workItem from="1736245290418" duration="12590000" />
       <workItem from="1736264185591" duration="3569000" />
       <workItem from="1736450136196" duration="7435000" />
-      <workItem from="1736539382615" duration="1433000" />
+      <workItem from="1736539382615" duration="1688000" />
     </task>
     <servers />
   </component>
