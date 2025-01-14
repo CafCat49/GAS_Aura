@@ -22,7 +22,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://1" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Program Files/Epic Games/UE_5.5/Engine/Source/Developer/Datasmith/DatasmithExporter/DatasmithExporter.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Program Files/Epic Games/UE_5.5/Engine/Source/Developer/ExternalImagePicker/ExternalImagePicker.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Program Files/Epic Games/UE_5.5/Engine/Source/Developer/ShaderCompilerCommon/ShaderCompilerCommon.Build.cs" root0="FORCE_HIGHLIGHTING" />
@@ -164,7 +164,7 @@
       <workItem from="1736450136196" duration="7435000" />
       <workItem from="1736539382615" duration="1688000" />
       <workItem from="1736614847479" duration="28000" />
-      <workItem from="1736859369792" duration="1201000" />
+      <workItem from="1736859369792" duration="3006000" />
     </task>
     <servers />
   </component>
