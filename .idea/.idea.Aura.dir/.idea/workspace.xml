@@ -9,6 +9,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d26a86ca-86f2-4f5c-b1bd-667903ab6eb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Aura.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Aura.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Aura.uproject.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Aura.uproject.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviorTree/BB_EnemyBoard.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviorTree/BB_EnemyBoard.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviorTree/BT_EnemyBehavior.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviorTree/BT_EnemyBehavior.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Actor/Consumable/BP_HealthPotion.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Actor/Consumable/BP_HealthPotion.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Aura/Private/Character/AuraEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Aura/Private/Character/AuraEnemy.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +27,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://4" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Program Files/Epic Games/UE_5.5/Engine/Source/Developer/Datasmith/DatasmithExporter/DatasmithExporter.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Program Files/Epic Games/UE_5.5/Engine/Source/Developer/ExternalImagePicker/ExternalImagePicker.Build.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Program Files/Epic Games/UE_5.5/Engine/Source/Developer/ShaderCompilerCommon/ShaderCompilerCommon.Build.cs" root0="FORCE_HIGHLIGHTING" />
@@ -166,7 +177,7 @@
       <workItem from="1736614847479" duration="28000" />
       <workItem from="1736859369792" duration="4335000" />
       <workItem from="1736942587510" duration="3709000" />
-      <workItem from="1737032632313" duration="884000" />
+      <workItem from="1737032632313" duration="2389000" />
     </task>
     <servers />
   </component>
