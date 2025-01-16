@@ -9,10 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d26a86ca-86f2-4f5c-b1bd-667903ab6eb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Aura.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Aura.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Aura.uproject.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Aura.uproject.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/Data/DA_CharacterClassInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/Data/DA_CharacterClassInfo.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Shaman/BP_Shaman.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Shaman/BP_Shaman.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/StartupMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/StartupMap.umap" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,6 +168,7 @@
       <workItem from="1736539382615" duration="1688000" />
       <workItem from="1736614847479" duration="28000" />
       <workItem from="1736859369792" duration="4335000" />
+      <workItem from="1736942587510" duration="3709000" />
     </task>
     <servers />
   </component>
