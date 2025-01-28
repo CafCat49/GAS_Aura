@@ -79,9 +79,7 @@ DerivedDataCache/*
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-
 .idea/**/contentModel.xml
-
 .idea/**/dataSources/
 .idea/**/dataSources.ids
 .idea/**/dataSources.local.xml
