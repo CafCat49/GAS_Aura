@@ -66,6 +66,9 @@ protected:
 	FName RightHandSocketName;
 
 	UPROPERTY(EditAnywhere, Category="Combat")
+	FName TailSocketName;
+
+	UPROPERTY(EditAnywhere, Category="Combat")
 	bool bHasFriendlyFire = false;
 	
 	bool bDead = false;
