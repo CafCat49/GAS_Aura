@@ -9,26 +9,51 @@ TArray<FVector> UAuraSummonSpell::GetSpawnLocations()
 {
 	const FVector Fwd = GetAvatarActorFromActorInfo()->GetActorForwardVector();
 	const FVector Pos = GetAvatarActorFromActorInfo()->GetActorLocation();
-
-	const FVector RSpread = Fwd.RotateAngleAxis(SpreadAngle / 2.f, FVector::UpVector);
-	UKismetSystemLibrary::DrawDebugArrow(
-		GetAvatarActorFromActorInfo(),
-		Pos,
-		Pos + RSpread * MaxSpawnDistance,
-		4.f,
-		FLinearColor::Green,
-		3.f
-		);
-
+	const float DeltaSpread = SpreadAngle / MinionCount;
+	
 	const FVector LSpread = Fwd.RotateAngleAxis(-SpreadAngle / 2.f, FVector::UpVector);
-	UKismetSystemLibrary::DrawDebugArrow(
-	GetAvatarActorFromActorInfo(),
-	Pos,
-	Pos + LSpread * MaxSpawnDistance,
-	4.f,
-	FLinearColor::Gray,
-	3.f
-	);
+	TArray<FVector> SpawnLocations;
+	for (int32 i = 0; i < MinionCount; i++)
+	{
+		const FVector Dir = LSpread.RotateAngleAxis(DeltaSpread * i, FVector::UpVector);
+		const FVector SpawnPos = Pos + Dir * FMath::FRandRange(MinSpawnDistance, MaxSpawnDistance);
+		SpawnLocations.Add(SpawnPos);
+		
+		DrawDebugSphere(
+			GetWorld(),
+			SpawnPos,
+			18.f,
+			12,
+			FColor::Blue,
+			false,
+			3.f);
+		
+		UKismetSystemLibrary::DrawDebugArrow(
+			GetAvatarActorFromActorInfo(),
+			Pos,
+			Pos + Dir * MaxSpawnDistance,
+			4.f,
+			FLinearColor::Green,
+			3.f);
 
-	return TArray<FVector>();
+		DrawDebugSphere(
+			GetWorld(),
+			Pos + Dir * MinSpawnDistance,
+			5.f,
+			12,
+			FColor::Red,
+			false,
+			3.f);
+
+		DrawDebugSphere(
+			GetWorld(),
+			Pos + Dir * MaxSpawnDistance,
+			5.f,
+			12,
+			FColor::Red,
+			false,
+			3.f);
+	}
+
+	return SpawnLocations;
 }
