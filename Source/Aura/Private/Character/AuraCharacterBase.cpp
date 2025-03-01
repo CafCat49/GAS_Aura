@@ -92,6 +92,7 @@ void AAuraCharacterBase::AddCharacterAbilities()
 	if (!HasAuthority()) return;
 
 	AuraASC->AddCharacterAbilities(StartupAbilities);
+	AuraASC->AddCharacterPassiveAbilities(StartupPassiveAbilities);
 }
 
 FVector AAuraCharacterBase::GetCombatSocketPos_Implementation(const FGameplayTag& MontageTag)
