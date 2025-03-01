@@ -9,6 +9,7 @@
 #include "GameFramework/Character.h"
 #include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAbilitySystemBPLibrary.h"
+#include "Aura/AuraLogChannels.h"
 #include "Interaction/CombatInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/AuraPlayerController.h"
@@ -133,16 +134,6 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	FEffectProperties Props;
 	SetEffectProperties(Data, Props);
 
-	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
-	{
-		UE_LOG(
-			LogTemp,
-			Warning,
-			TEXT("Changed Health on %s, Health: %f"),
-			*Props.TargetAvatarActor->GetName(),
-			GetHealth());
-	}
-
 	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
 	{
 		const float TempIncDmg = GetIncomingDamage();
@@ -169,6 +160,19 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 			const bool bCrit = UAuraAbilitySystemBPLibrary::IsCriticalHit(Props.EffectContextHandle);
 			ShowFloatingText(Props, TempIncDmg, bBlocked, bCrit);
 		}
+	}
+
+	if (Data.EvaluatedData.Attribute == GetIncomingXPAttribute())
+	{
+		const float LocalIncomingXP = GetIncomingXP();
+		SetIncomingXP(0);
+		
+		UE_LOG(
+			LogAura,
+			Warning,
+			TEXT("Changed Incoming XP on %s, XP: %f"),
+			*Props.TargetAvatarActor->GetName(),
+			LocalIncomingXP);
 	}
 	
 }
