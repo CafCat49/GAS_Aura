@@ -28,8 +28,12 @@ float UMaxHealthMMC::CalculateBaseMagnitude_Implementation(const FGameplayEffect
 	GetCapturedAttributeMagnitude(ConDef, Spec, EvaluationParams, Con);
 	Con = FMath::Max<float>(Con, 0);
 
-	ICombatInterface* CombatInterface = Cast<ICombatInterface>(Spec.GetContext().GetSourceObject());
-	const int32 CharLvl = CombatInterface->GetCharacterLevel();
+	int32 CharLvl = 1;
+
+	if (Spec.GetContext().GetSourceObject()->Implements<UCombatInterface>())
+	{
+		CharLvl = ICombatInterface::Execute_GetCharacterLevel(Spec.GetContext().GetSourceObject());
+	}
 
 	return 80 + Con * 2.5 + CharLvl * 10;
 }

@@ -90,8 +90,18 @@ void UEC_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionPara
 
 	AActor* SourceAvatar = SourceASC ? SourceASC->GetAvatarActor() : nullptr;
 	AActor* TargetAvatar = TargetASC ? TargetASC->GetAvatarActor() : nullptr;
-	ICombatInterface* SourceCombatInterface = Cast<ICombatInterface>(SourceAvatar);
-	ICombatInterface* TargetCombatInterface = Cast<ICombatInterface>(TargetAvatar);
+
+	int32 SourceLvl = 1;
+	if (SourceAvatar->Implements<UCombatInterface>())
+	{
+		SourceLvl = ICombatInterface::Execute_GetCharacterLevel(SourceAvatar);
+	}
+
+	int32 TargetLvl = 1;
+	if (TargetAvatar->Implements<UCombatInterface>())
+	{
+		TargetLvl = ICombatInterface::Execute_GetCharacterLevel(TargetAvatar);
+	}
 
 	const FGameplayEffectSpec& Spec = ExecutionParams.GetOwningSpec();
 
@@ -161,7 +171,7 @@ void UEC_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionPara
 	const UCharacterClassInfo* CharacterClassInfo = UAuraAbilitySystemBPLibrary::GetCharacterClassInfo(SourceAvatar);
 	const FRealCurve* ArmorPenCurve =
 		CharacterClassInfo->DamageCalculationCoefficients->FindCurve(FName("ArmorPenetration"), FString());
-	const float ArmorPenCoeff = ArmorPenCurve->Eval(SourceCombatInterface->GetCharacterLevel());
+	const float ArmorPenCoeff = ArmorPenCurve->Eval(SourceLvl);
 	
 	//Armor Penetration ignores a percent of Target's Armor
 	const float EffectiveArmor =
@@ -169,7 +179,7 @@ void UEC_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionPara
 
 	const FRealCurve* EffectiveArmorCurve =
 		CharacterClassInfo->DamageCalculationCoefficients->FindCurve(FName("EffectiveArmor"), FString());
-	const float EffectiveArmorCoeff = EffectiveArmorCurve->Eval(TargetCombatInterface->GetCharacterLevel());
+	const float EffectiveArmorCoeff = EffectiveArmorCurve->Eval(TargetLvl);
 	
 	//Armor Class ignores a percent of incoming damage
 	Damage *= (100 - EffectiveArmor * EffectiveArmorCoeff) / 100;
@@ -200,7 +210,7 @@ void UEC_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionPara
 	
 	const FRealCurve* CritAvoidCurve =
 		CharacterClassInfo->DamageCalculationCoefficients->FindCurve(FName("CriticalAvoidance"), FString());
-	const float CritAvoidCoeff = CritAvoidCurve->Eval(TargetCombatInterface->GetCharacterLevel());
+	const float CritAvoidCoeff = CritAvoidCurve->Eval(TargetLvl);
 
 	//Critical Avoidance reduces Critical Chance by a certain percent
 	const float EffectiveCritChance = SourceCritChance - TargetCritAvoid * CritAvoidCoeff;
