@@ -22,7 +22,14 @@ public:
 	virtual void OnRep_PlayerState() override;
 
 	// Player Interface
+	virtual int32 FindLevelForXP_Implementation(int32 XP) const override;
+	virtual int32 GetXP_Implementation() const override;
+	virtual int32 GetAttributePointReward_Implementation(int32 Level) const override;
+	virtual int32 GetSpellPointReward_Implementation(int32 Level) const override;
+	virtual void AddLevel_Implementation(int32 InLevel) override;
 	virtual void AddXP_Implementation(int32 InXP) override;
+	virtual void AddAttributePoints_Implementation(int32 InAttributePts) override;
+	virtual void AddSpellPoints_Implementation(int32 InSpellPts) override;
 	virtual void LevelUp_Implementation() override;
 	// End Player Interface
 	

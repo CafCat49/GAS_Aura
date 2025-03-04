@@ -9,10 +9,8 @@
 #include "GameFramework/Character.h"
 #include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAbilitySystemBPLibrary.h"
-#include "Aura/AuraLogChannels.h"
 #include "Interaction/CombatInterface.h"
 #include "Interaction/PlayerInterface.h"
-#include "Kismet/GameplayStatics.h"
 #include "Player/AuraPlayerController.h"
 
 UAuraAttributeSet::UAuraAttributeSet()
@@ -170,11 +168,30 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	{
 		const float LocalIncomingXP = GetIncomingXP();
 		SetIncomingXP(0);
-
-		//TODO: See if we should level up
 		
-		if (Props.SourceCharacter->Implements<UPlayerInterface>())
+		if (Props.SourceCharacter->Implements<UPlayerInterface>() && Props.SourceCharacter->Implements<UCombatInterface>()
+			&& Props.SourceCharacter->Implements<UAbilitySystemComponent>())
 		{
+			const int32 CurrentLvl = ICombatInterface::Execute_GetCharacterLevel(Props.SourceCharacter);
+			const int32 CurrentXP = IPlayerInterface::Execute_GetXP(Props.SourceCharacter);
+
+			const int32 NewLvl = IPlayerInterface::Execute_FindLevelForXP(Props.SourceCharacter, CurrentXP + LocalIncomingXP);
+			const int32 LvlUpCount = NewLvl - CurrentLvl;
+			if (LvlUpCount > 0)
+			{
+				const int32 AttributePointReward = IPlayerInterface::Execute_GetAttributePointReward(Props.SourceCharacter, CurrentLvl);
+				const int32 SpellPointReward = IPlayerInterface::Execute_GetSpellPointReward(Props.SourceCharacter, CurrentLvl);
+
+				IPlayerInterface::Execute_AddLevel(Props.SourceCharacter, LvlUpCount);
+				IPlayerInterface::Execute_AddAttributePoints(Props.SourceCharacter, AttributePointReward);
+				IPlayerInterface::Execute_AddSpellPoints(Props.SourceCharacter, SpellPointReward);
+
+				SetHealth(GetMaxHealth());
+				SetMana(GetMaxMana());
+				
+				IPlayerInterface::Execute_LevelUp(Props.SourceCharacter);
+			}
+			
 			IPlayerInterface::Execute_AddXP(Props.SourceCharacter, LocalIncomingXP);
 		}
 	}
