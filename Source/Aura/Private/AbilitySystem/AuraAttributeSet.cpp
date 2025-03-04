@@ -169,8 +169,7 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 		const float LocalIncomingXP = GetIncomingXP();
 		SetIncomingXP(0);
 		
-		if (Props.SourceCharacter->Implements<UPlayerInterface>() && Props.SourceCharacter->Implements<UCombatInterface>()
-			&& Props.SourceCharacter->Implements<UAbilitySystemComponent>())
+		if (Props.SourceCharacter->Implements<UPlayerInterface>() && Props.SourceCharacter->Implements<UCombatInterface>())
 		{
 			const int32 CurrentLvl = ICombatInterface::Execute_GetCharacterLevel(Props.SourceCharacter);
 			const int32 CurrentXP = IPlayerInterface::Execute_GetXP(Props.SourceCharacter);
