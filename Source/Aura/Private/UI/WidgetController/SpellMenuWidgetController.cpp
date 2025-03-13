@@ -20,6 +20,15 @@ void USpellMenuWidgetController::BindCallbacksToDependencies()
 {
 	GetAuraASC()->AbilityStatusChanged.AddLambda([this](const FGameplayTag& AbilityTag, const FGameplayTag& StatusTag)
 	{
+		if (SelectedAbility.Ability.MatchesTagExact(AbilityTag))
+		{
+			SelectedAbility.Status = StatusTag;
+			bool bEnableSpellPoints = false;
+			bool bEnableAssign = false;
+			ShouldEnableButtons(StatusTag, CurrentSpellPoints, bEnableSpellPoints, bEnableAssign);
+			SpellSelectedDelegate.Broadcast(bEnableSpellPoints, bEnableAssign);
+		}
+		
 		if (AbilityInfo)
 		{
 			FAuraAbilityInfo Info = AbilityInfo->FindAbilityInfoForTag(AbilityTag);
@@ -31,6 +40,12 @@ void USpellMenuWidgetController::BindCallbacksToDependencies()
 	GetAuraPS()->OnSpellPointsChangedDelegate.AddLambda([this](int32 Points)
 	{
 		SpellPointsChangedDelegate.Broadcast(Points);
+		
+		CurrentSpellPoints = Points;
+		bool bEnableSpellPoints = false;
+		bool bEnableAssign = false;
+		ShouldEnableButtons(SelectedAbility.Status, CurrentSpellPoints, bEnableSpellPoints, bEnableAssign);
+		SpellSelectedDelegate.Broadcast(bEnableSpellPoints, bEnableAssign);
 	}); 
 }
 
@@ -55,6 +70,8 @@ void USpellMenuWidgetController::SpellSelected(const FGameplayTag& AbilityTag)
 		Status = GetAuraASC()->GetStatusFromSpec(*Spec);
 	}
 
+	SelectedAbility.Ability = AbilityTag;
+	SelectedAbility.Status = Status;
 	bool bEnableSpellPoints = false;
 	bool bEnableAssign = false;
 	ShouldEnableButtons(Status, SpellPoints, bEnableSpellPoints, bEnableAssign);
