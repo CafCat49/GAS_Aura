@@ -32,6 +32,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SpellSelected(const FGameplayTag& AbilityTag);
 
+	UFUNCTION(BlueprintCallable)
+	void SpendPointButtonPressed();
+
 	UPROPERTY(BlueprintAssignable)
 	FOnPlayerStatChangedSignature SpellPointsChangedDelegate;
 
