@@ -41,6 +41,11 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void AssignButtonPressed();
+	
+	UFUNCTION(BlueprintCallable)
+	void HotbarSpellPressed(const FGameplayTag& SlotTag, const FGameplayTag& AbilityType);
+
+	void OnAbilityAssigned(const FGameplayTag& AbilityTag, const FGameplayTag& Status, const FGameplayTag& Slot, const FGameplayTag& PreviousSlot);
 
 	UPROPERTY(BlueprintAssignable)
 	FOnPlayerStatChangedSignature SpellPointsChangedDelegate;
@@ -59,6 +64,7 @@ private:
 	static void ShouldEnableButtons(const FGameplayTag& StatusTag, int32 SpellPoints, bool& bEnableSpellPointsButton, bool& bEnableAssignButton);
 
 	FSelectedAbility SelectedAbility = {FAuraGameplayTags::Get().Abilities_None, FAuraGameplayTags::Get().Abilities_Status_Locked};
+	FGameplayTag SelectedSlot;
 	int32 CurrentSpellPoints = 0;
 	bool bWaitingForAssignSelection = false;
 };
