@@ -92,6 +92,14 @@ void USpellMenuWidgetController::SpendPointButtonPressed()
 	if (GetAuraASC()) GetAuraASC()->ServerSpendSpellPoint(SelectedAbility.Ability);
 }
 
+void USpellMenuWidgetController::SpellDeselected()
+{
+	SelectedAbility.Ability = FAuraGameplayTags::Get().Abilities_None;
+	SelectedAbility.Status = FAuraGameplayTags::Get().Abilities_Status_Locked;
+
+	SpellSelectedDelegate.Broadcast(false, false, FString(), FString());
+}
+
 void USpellMenuWidgetController::ShouldEnableButtons(const FGameplayTag& StatusTag, int32 SpellPoints,
                                                      bool& bEnableSpellPointsButton, bool& bEnableAssignButton)
 {
