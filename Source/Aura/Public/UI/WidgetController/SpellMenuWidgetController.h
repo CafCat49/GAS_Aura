@@ -10,6 +10,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FSpellSelectedSignature, bool, bEnableSpendPointsButton, bool, bEnableAssignButton,
 	FString, DescriptionString, FString, NextLevelDescriptionString);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWaitForAssignSelectionSignature, const FGameplayTag&, AbilityType);
 
 struct FSelectedAbility
 {
@@ -38,15 +39,26 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SpellDeselected();
 
+	UFUNCTION(BlueprintCallable)
+	void AssignButtonPressed();
+
 	UPROPERTY(BlueprintAssignable)
 	FOnPlayerStatChangedSignature SpellPointsChangedDelegate;
 
 	UPROPERTY(BlueprintAssignable)
 	FSpellSelectedSignature SpellSelectedDelegate;
 
+	UPROPERTY(BlueprintAssignable)
+	FWaitForAssignSelectionSignature WaitForAssignDelegate;
+
+	UPROPERTY(BlueprintAssignable)
+	FWaitForAssignSelectionSignature StopWaitingForAssignDelegate;
+
 private:
 
 	static void ShouldEnableButtons(const FGameplayTag& StatusTag, int32 SpellPoints, bool& bEnableSpellPointsButton, bool& bEnableAssignButton);
+
 	FSelectedAbility SelectedAbility = {FAuraGameplayTags::Get().Abilities_None, FAuraGameplayTags::Get().Abilities_Status_Locked};
 	int32 CurrentSpellPoints = 0;
+	bool bWaitingForAssignSelection = false;
 };
