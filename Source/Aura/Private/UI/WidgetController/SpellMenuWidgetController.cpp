@@ -160,6 +160,8 @@ void USpellMenuWidgetController::OnAbilityAssigned(const FGameplayTag& AbilityTa
 	AbilityInfoDelegate.Broadcast(Info);
 
 	StopWaitingForAssignDelegate.Broadcast(AbilityInfo->FindAbilityInfoForTag(AbilityTag).AbilityType);
+	SpellReassignedDelegate.Broadcast(AbilityTag);
+	SpellDeselected();
 }
 
 void USpellMenuWidgetController::ShouldEnableButtons(const FGameplayTag& StatusTag, int32 SpellPoints,
