@@ -396,3 +396,45 @@ FGameplayEffectContextHandle UAuraAbilitySystemBPLibrary::ApplyDamageEffect(cons
 	DamageEffectParams.TargetAbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data);
 	return EffectContextHandle;
 }
+
+TArray<FRotator> UAuraAbilitySystemBPLibrary::EvenlySpacedRotators(const FVector& Forward, const FVector& Axis, float Spread, int32 RotatorCount)
+{
+	TArray<FRotator> Rotators;
+	
+	const FVector LeftOfSpread = Forward.RotateAngleAxis(-Spread / 2.f, Axis);
+	if (RotatorCount > 1)
+	{
+		const float DeltaSpread = Spread / (RotatorCount - 1);
+		for (int32 i = 0; i < RotatorCount; i++)
+		{
+			const FVector Direction = LeftOfSpread.RotateAngleAxis(DeltaSpread * i, Axis);
+			Rotators.Add(Direction.Rotation());
+		}
+	}
+	else
+	{
+		Rotators.Add(Forward.Rotation());
+	}
+	return Rotators;
+}
+
+TArray<FVector> UAuraAbilitySystemBPLibrary::EvenlyRotatedVectors(const FVector& Forward, const FVector& Axis, float Spread, int32 VectorCount)
+{
+	TArray<FVector> Vectors;
+	
+	const FVector LeftOfSpread = Forward.RotateAngleAxis(-Spread / 2.f, Axis);
+	if (VectorCount > 1)
+	{
+		const float DeltaSpread = Spread / (VectorCount - 1);
+		for (int32 i = 0; i < VectorCount; i++)
+		{
+			const FVector Direction = LeftOfSpread.RotateAngleAxis(DeltaSpread * i, Axis);
+			Vectors.Add(Direction);
+		}
+	}
+	else
+	{
+		Vectors.Add(Forward);
+	}
+	return Vectors;
+}
