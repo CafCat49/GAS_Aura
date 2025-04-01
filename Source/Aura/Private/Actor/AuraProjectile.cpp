@@ -48,12 +48,21 @@ void AAuraProjectile::OnHit()
 		ImpactEffect,
 		GetActorLocation());
 
-	if (LoopingSoundComponent) LoopingSoundComponent->Stop();
+	if (LoopingSoundComponent)
+	{
+		LoopingSoundComponent->Stop();
+		LoopingSoundComponent->DestroyComponent();
+	}
 	bHit = true;
 }
 
 void AAuraProjectile::Destroyed()
 {
+	if (LoopingSoundComponent)
+	{
+		LoopingSoundComponent->Stop();
+		LoopingSoundComponent->DestroyComponent();
+	}
 	if (!bHit && !HasAuthority()) OnHit();
 	Super::Destroyed();
 }

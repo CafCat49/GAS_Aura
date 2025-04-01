@@ -90,4 +90,7 @@ public:
 	ECharacterClass GetCharacterClass();
 
 	virtual FOnASCRegistered GetOnASCRegisteredDelegate() = 0;
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void SetInShockLoop(bool bInLoop);
 };
