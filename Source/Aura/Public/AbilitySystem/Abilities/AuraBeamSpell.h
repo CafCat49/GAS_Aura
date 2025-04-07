@@ -20,6 +20,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void StoreOwnerData();
+
+	UFUNCTION(BlueprintCallable)
+	void TraceFirstTarget(const FVector& BeamTargetLocation);
 	
 protected:
 
