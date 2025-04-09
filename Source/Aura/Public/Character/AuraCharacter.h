@@ -43,6 +43,8 @@ public:
 	virtual int32 GetCharacterLevel_Implementation() override;
 	// End Combat Interface
 
+	virtual void OnRep_Stunned() override;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UNiagaraComponent> LevelUpNiagaraComponent;
 
