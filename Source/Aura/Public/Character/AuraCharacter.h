@@ -44,6 +44,7 @@ public:
 	// End Combat Interface
 
 	virtual void OnRep_Stunned() override;
+	virtual void OnRep_Burned() override;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UNiagaraComponent> LevelUpNiagaraComponent;
