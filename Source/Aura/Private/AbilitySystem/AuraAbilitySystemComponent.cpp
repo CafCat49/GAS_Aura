@@ -219,7 +219,7 @@ void UAuraAbilitySystemComponent::ServerAssignAbility_Implementation(const FGame
 	}
 }
 
-void UAuraAbilitySystemComponent::ClientAssignAbility(const FGameplayTag& AbilityTag, const FGameplayTag& Status,
+void UAuraAbilitySystemComponent::ClientAssignAbility_Implementation(const FGameplayTag& AbilityTag, const FGameplayTag& Status,
    const FGameplayTag& Slot, const FGameplayTag& PreviousSlot)
 {
 	AbilityAssigned.Broadcast(AbilityTag, Status, Slot, PreviousSlot);
