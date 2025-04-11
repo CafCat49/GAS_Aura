@@ -141,6 +141,22 @@ void AAuraCharacter::LevelUp_Implementation()
 	MulticastLevelUpParticles();
 }
 
+void AAuraCharacter::ShowMagicCircle_Implementation(UMaterialInterface* DecalMaterial)
+{
+	if (AAuraPlayerController* AuraPC = Cast<AAuraPlayerController>(GetController()))
+	{
+		AuraPC->ShowMagicCircle(DecalMaterial);
+	}
+}
+
+void AAuraCharacter::HideMagicCircle_Implementation()
+{
+	if (AAuraPlayerController* AuraPC = Cast<AAuraPlayerController>(GetController()))
+	{
+		AuraPC->ShowMagicCircle();
+	}
+}
+
 void AAuraCharacter::MulticastLevelUpParticles_Implementation() const
 {
 	if (IsValid(LevelUpNiagaraComponent))
