@@ -289,7 +289,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FName("Abilities.None"),
 		FString("No Ability")
 		);
-	
+
 	GameplayTags.Abilities_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Attack"),
 		FString("Attack Ability Tag")
@@ -300,6 +300,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FString("Summon Ability Tag")
 		);
 
+	//Offensive Spells
 	GameplayTags.Abilities_Fire_FireBolt = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Fire.FireBolt"),
 		FString("Fire Bolt Ability Tag")
@@ -307,9 +308,15 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 
 	GameplayTags.Abilities_Lightning_Electrocute = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Lightning.Electrocute"),
-	FString("Electrocute Ability Tag")
+		FString("Electrocute Ability Tag")
 		);
 
+	GameplayTags.Abilities_Arcane_ArcaneShards = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.Arcane.ArcaneShards"),
+		FString("Arcane Shards Ability Tag")
+		);
+
+	//Passive Spells
 	GameplayTags.Abilities_Passive_HaloOfProtection = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Passive.HaloOfProtection"),
 		FString("Halo Of Protection")
@@ -324,12 +331,14 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FName("Abilities.Passive.ManaSiphon"),
 		FString("Mana Siphon")
 		);
-	
+
+	//Hit React
 	GameplayTags.Abilities_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.HitReact"),
 		FString("HitReact Ability")
 		);
 
+	//Ability Status
 	GameplayTags.Abilities_Status_Locked = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Status.Locked"),
 		FString("Locked Status")
@@ -350,6 +359,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FString("Assigned Status")
 		);
 
+	//Ability Types
 	GameplayTags.Abilities_Type_Offensive = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Type.Offensive"),
 		FString("Offensive Type")

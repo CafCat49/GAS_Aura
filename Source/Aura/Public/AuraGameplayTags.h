@@ -82,23 +82,29 @@ public:
 	
 	//Ability Tags
 	FGameplayTag Abilities_None;
-	
 	FGameplayTag Abilities_Attack;
 	FGameplayTag Abilities_Summon;
+
+	//Offensive Spells
 	FGameplayTag Abilities_Fire_FireBolt;
 	FGameplayTag Abilities_Lightning_Electrocute;
+	FGameplayTag Abilities_Arcane_ArcaneShards;
 
+	//Passive Spells
 	FGameplayTag Abilities_Passive_HaloOfProtection;
 	FGameplayTag Abilities_Passive_LifeSiphon;
 	FGameplayTag Abilities_Passive_ManaSiphon;
 
+	//Hit React
 	FGameplayTag Abilities_HitReact;
 
+	//Ability Status
 	FGameplayTag Abilities_Status_Locked;
 	FGameplayTag Abilities_Status_Eligible;
 	FGameplayTag Abilities_Status_Unlocked;
 	FGameplayTag Abilities_Status_Assigned;
 
+	//Ability Types
 	FGameplayTag Abilities_Type_Offensive;
 	FGameplayTag Abilities_Type_Passive;
 	FGameplayTag Abilities_Type_None;
