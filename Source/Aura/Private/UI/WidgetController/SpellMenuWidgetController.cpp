@@ -123,10 +123,10 @@ void USpellMenuWidgetController::AssignButtonPressed()
 	WaitForAssignDelegate.Broadcast(AbilityType);
 	bWaitingForAssignSelection = true;
 
-	const FGameplayTag SelectedStatus = GetAuraASC()->GetAbilityStatusFromTag(SelectedAbility.Ability);
+	const FGameplayTag SelectedStatus = GetAuraASC()->GetStatusFromAbilityTag(SelectedAbility.Ability);
 	if (SelectedStatus.MatchesTag(FAuraGameplayTags::Get().Abilities_Status_Assigned))
 	{
-		SelectedSlot = GetAuraASC()->GetAbilityInputFromTag(SelectedAbility.Ability);
+		SelectedSlot = GetAuraASC()->GetSlotFromAbilityTag(SelectedAbility.Ability);
 	}
 }
 
