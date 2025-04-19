@@ -59,6 +59,18 @@ struct FDamageEffectParams
 	
 	UPROPERTY()
 	FVector KnockbackForce = FVector::ZeroVector;
+
+	UPROPERTY()
+	bool bIsRadialDamage = false;
+
+	UPROPERTY()
+	float RadialDamageInnerRadius = 0.f;
+
+	UPROPERTY()
+	float RadialDamageOuterRadius = 0.f;
+
+	UPROPERTY()
+	FVector RadialDamageOrigin = FVector::ZeroVector;
 };
 
 USTRUCT(BlueprintType)
@@ -77,6 +89,10 @@ public:
 	TSharedPtr<FGameplayTag> GetDamageType() const { return DamageType; }
 	FVector GetDeathImpulse() const { return DeathImpulse; }
 	FVector GetKnockbackForce() const { return KnockbackForce; }
+	bool IsRadialDamage() const { return bIsRadialDamage; }
+	float GetRadialDamageInnerRadius() const { return RadialDamageInnerRadius; }
+	float GetRadialDamageOuterRadius() const { return RadialDamageOuterRadius; }
+	FVector GetRadialDamageOrigin() const { return RadialDamageOrigin; }
 
 	void SetIsCriticalHit(bool bInIsCrit) { bIsCrit = bInIsCrit; }
 	void SetIsBlockedHit(bool bInIsBlocked) { bIsBlocked = bInIsBlocked; }
@@ -87,6 +103,10 @@ public:
 	void SetDamageType(TSharedPtr<FGameplayTag> InDamageType) { DamageType = InDamageType; }
 	void SetDeathImpulse(const FVector& InImpulse) { DeathImpulse = InImpulse; }
 	void SetKnockbackForce(const FVector& InForce) { KnockbackForce = InForce; }
+	void SetIsRadialDamage(bool bInIsRadialDmg) { bIsRadialDamage = bInIsRadialDmg; }
+	void SetRadialDamageInnerRadius(float InRadius) { RadialDamageInnerRadius = InRadius; }
+	void SetRadialDamageOuterRadius(float InRadius) { RadialDamageOuterRadius = InRadius; }
+	void SetRadialDamageOrigin(const FVector& InOrigin) { RadialDamageOrigin = InOrigin; }
 	
 	virtual UScriptStruct* GetScriptStruct() const override
 	{
@@ -136,6 +156,18 @@ protected:
 
 	UPROPERTY()
 	FVector KnockbackForce = FVector::ZeroVector;
+
+	UPROPERTY()
+	bool bIsRadialDamage = false;
+
+	UPROPERTY()
+	float RadialDamageInnerRadius = 0.f;
+
+	UPROPERTY()
+	float RadialDamageOuterRadius = 0.f;
+
+	UPROPERTY()
+	FVector RadialDamageOrigin = FVector::ZeroVector;
 };
 
 template<>
