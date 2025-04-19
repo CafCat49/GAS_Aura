@@ -10,6 +10,7 @@
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "Interaction/CombatInterface.h"
+#include "Kismet/GameplayStatics.h"
 
 struct AuraDamageStatics
 {
@@ -148,6 +149,7 @@ void UEC_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionPara
 	}
 
 	const FGameplayEffectSpec& Spec = ExecutionParams.GetOwningSpec();
+	FGameplayEffectContextHandle EffectContextHandle = Spec.GetContext();
 
 	const FGameplayTagContainer* SourceTags = Spec.CapturedSourceTags.GetAggregatedTags();
 	const FGameplayTagContainer* TargetTags = Spec.CapturedTargetTags.GetAggregatedTags();
@@ -179,6 +181,35 @@ void UEC_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionPara
 		Resistance = FMath::Clamp(Resistance, 0, 100);
 
 		DamageTypeValue *= (100 - Resistance) / 100;
+
+		if (UAuraAbilitySystemBPLibrary::IsRadialDamage(EffectContextHandle))
+		{
+			// 1. override TakeDamage in AuraCharacterBase
+			// 2. create delegate OnDamageDelegate, broadcast in TakeDamage
+			// 3. bind to OnDamageDelegate on the target here
+			// 4. Call UGameplayStatics::ApplyRadialDamageWithFalloff
+			// 5. In Lambda, set DamageTypeValue to damage received from broadcast
+
+			if (ICombatInterface* CombatInterface = Cast<ICombatInterface>(TargetAvatar))
+			{
+				CombatInterface->GetOnDamageDelegate().AddLambda([&](float DamageAmount)
+				{
+					DamageTypeValue = DamageAmount;
+				});
+			}
+			UGameplayStatics::ApplyRadialDamageWithFalloff(
+				TargetAvatar,
+				DamageTypeValue,
+				0.f,
+				UAuraAbilitySystemBPLibrary::GetRadialDamageOrigin(EffectContextHandle),
+				UAuraAbilitySystemBPLibrary::GetRadialDamageInnerRadius(EffectContextHandle),
+				UAuraAbilitySystemBPLibrary::GetRadialDamageOuterRadius(EffectContextHandle),
+				1.f,
+				UDamageType::StaticClass(),
+				TArray<AActor*>(),
+				SourceAvatar,
+				nullptr);
+		}
 		
 		Damage += DamageTypeValue;
 	}
@@ -192,8 +223,6 @@ void UEC_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionPara
 
 	TargetBlockChance = FMath::Max<float>(0, TargetBlockChance);
 	const bool bBlocked = FMath::RandRange(1, 100) < TargetBlockChance;
-
-	FGameplayEffectContextHandle EffectContextHandle = Spec.GetContext();
 	UAuraAbilitySystemBPLibrary::SetIsBlockedHit(EffectContextHandle, bBlocked);
 	
 	//If successful block, take half damage
