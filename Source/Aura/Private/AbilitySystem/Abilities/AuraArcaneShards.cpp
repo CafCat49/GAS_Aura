@@ -20,8 +20,8 @@ FString UAuraArcaneShards::GetDescription(int32 Level)
 			"<Small>Cooldown: </><Cooldown>%.1f</><Small>s</>\n\n" //Cooldown
 	
 			// Description
-			"<Default>Summon a shard of arcane energy, dealing "
-			"</><Damage>%d </><Default>radial arcane damage at the shard origin.</>"), //Damage
+			"<Default>Summon a shard of arcane energy, dealing </>"
+			"<Damage>%d </><Default>radial arcane damage at the shard origin.</>"), //Damage
 
 			// Values
 			Level,
@@ -40,8 +40,8 @@ FString UAuraArcaneShards::GetDescription(int32 Level)
 		"<Small>Cooldown: </><Cooldown>%.1f</><Small>s</>\n\n" //Cooldown
 
 		// Description
-		"<Default>Summon %d shards of arcane energy, dealing " //Level
-		"</><Damage>%d </><Default>radial arcane damage at the shards' origins.</>"), //Damage
+		"<Default>Summon %d shards of arcane energy, dealing </>" //Level
+		"<Damage>%d </><Default>radial arcane damage at the shards' origins.</>"), //Damage
 
 		// Values
 		Level,
@@ -66,8 +66,8 @@ FString UAuraArcaneShards::GetNextLevelDescription(int32 Level)
 		"<Small>Cooldown: </><Cooldown>%.1f</><Small>s</>\n\n" //Cooldown
 
 		// Description
-		"<Default>Summon %d shards of arcane energy, dealing " //Level
-		"</><Damage>%d </><Default>radial arcane damage at the shards' origins.</>"), //Damage
+		"<Default>Summon %d shards of arcane energy, dealing </>" //Level
+		"<Damage>%d </><Default>radial arcane damage at the shards' origins.</>"), //Damage
 
 		// Values
 		Level,

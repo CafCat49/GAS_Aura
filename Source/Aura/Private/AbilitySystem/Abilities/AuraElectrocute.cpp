@@ -20,8 +20,8 @@ FString UAuraElectrocute::GetDescription(int32 Level)
 			"<Small>Cooldown: </><Cooldown>%.1f</><Small>s</>\n\n" //Cooldown
 	
 			// Description
-			"<Default>Emits a beam of lightning, connecting with the target, repeatedly dealing "
-			"</><Damage>%d </><Default>lightning damage with a chance to stun.</>"), //Damage
+			"<Default>Emits a beam of lightning, connecting with the target, repeatedly dealing </>"
+			"<Damage>%d </><Default>lightning damage with a chance to stun.</>"), //Damage
 
 			// Values
 			Level,
@@ -40,8 +40,8 @@ FString UAuraElectrocute::GetDescription(int32 Level)
 		"<Small>Cooldown: </><Cooldown>%.1f</><Small>s</>\n\n" //Cooldown
 
 		// Description
-		"<Default>Emits a beam of lightning, spreading to %d additional targets, repeatedly dealing " //MaxShockTargets
-		"</><Damage>%d </><Default>lightning damage with a chance to stun.</>"), //Damage
+		"<Default>Emits a beam of lightning, spreading to %d additional targets, repeatedly dealing </>" //MaxShockTargets
+		"<Damage>%d </><Default>lightning damage with a chance to stun.</>"), //Damage
 
 		// Values
 		Level,
@@ -66,8 +66,8 @@ FString UAuraElectrocute::GetNextLevelDescription(int32 Level)
 		"<Small>Cooldown: </><Cooldown>%.1f</><Small>s</>\n\n" //Cooldown
 		
 		// Description
-		"<Default>Emits a beam of lightning, spreading to %d additional targets, repeatedly dealing " //MaxShockTargets
-		"</><Damage>%d </><Default>lightning damage with a chance to stun.</>"), //Damage
+		"<Default>Emits a beam of lightning, spreading to %d additional targets, repeatedly dealing </>" //MaxShockTargets
+		"<Damage>%d </><Default>lightning damage with a chance to stun.</>"), //Damage
 	
 		// Values
 		Level,

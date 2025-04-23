@@ -24,8 +24,8 @@ FString UAuraFireBolt::GetDescription(int32 Level)
 			"<Small>Cooldown: </><Cooldown>%.1f</><Small>s</>\n\n" //Cooldown
 	
 			// Description
-			"<Default>Launches a bolt of fire, exploding on impact and dealing "
-			"</><Damage>%d </><Default>fire damage with a chance to burn.</>"), //Damage
+			"<Default>Launches a bolt of fire, exploding on impact and dealing </>"
+			"<Damage>%d </><Default>fire damage with a chance to burn.</>"), //Damage
 
 			// Values
 			Level,
@@ -44,8 +44,8 @@ FString UAuraFireBolt::GetDescription(int32 Level)
 		"<Small>Cooldown: </><Cooldown>%.1f</><Small>s</>\n\n" //Cooldown
 
 		// Description
-		"<Default>Launches %d bolts of fire, exploding on impact and dealing " //ProjectileCount
-		"</><Damage>%d </><Default>fire damage with a chance to burn.</>"), //Damage
+		"<Default>Launches %d bolts of fire, exploding on impact and dealing </>" //ProjectileCount
+		"<Damage>%d </><Default>fire damage with a chance to burn.</>"), //Damage
 
 		// Values
 		Level,
@@ -70,8 +70,8 @@ FString UAuraFireBolt::GetNextLevelDescription(int32 Level)
 		"<Small>Cooldown: </><Cooldown>%.1f</><Small>s</>\n\n" //Cooldown
 
 		// Description
-		"<Default>Launches %d bolts of fire, exploding on impact and dealing " //ProjectileCount
-		"</><Damage>%d </><Default>fire damage with a chance to burn.</>"), //Damage
+		"<Default>Launches %d bolts of fire, exploding on impact and dealing </>" //ProjectileCount
+		"<Damage>%d </><Default>fire damage with a chance to burn.</>"), //Damage
 
 		// Values
 		Level,
